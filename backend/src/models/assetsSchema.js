@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const assetSchema = new mongoose.Schema({
     _id: {

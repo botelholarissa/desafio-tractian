@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const userSchema = new mongoose.Schema({
     _id: {
@@ -11,12 +12,13 @@ const userSchema = new mongoose.Schema({
         required: true,
     },
     company: {
-        type: String,
-        required: false,
+        type: Schema.Types.ObjectId,
+        ref: 'company',
+        required: false
     },
     position: {
         type: String,
-        required: true,
+        required: false,
     }
 })
 
