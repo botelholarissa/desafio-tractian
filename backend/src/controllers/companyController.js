@@ -1,71 +1,70 @@
 const companiesCollection = require("../models/companiesSchema");
 
 const getAll = (req, res) => {
-    companiesCollection.find((error, users) => {
+    companiesCollection.find((error, cos) => {
         if(error)
             return res.status(500).send(error);
         else 
-            return res.status(200).send(users);
+            return res.status(200).send(cos);
     })
 }
 
 const getById = (req, res) => {
     id = req.params.id;
 
-    companiesCollection.findById(id, (error, user) => {
+    companiesCollection.findById(id, (error, co) => {
         if(error)
             return res.status(500).send(error);
         else{
-            if(user !== null)
-                return res.status(200).send(user);
+            if(co !== null)
+                return res.status(200).send(co);
             else
                 return res.status(404).send({ message: "Empresa não existe na base de dados."});
         }
     })
 }
 
-const addUser = (req, res) => {
-    const userBody = req.body;
-    const user = new companiesCollection(userBody);
+const add = (req, res) => {
+    const coBody = req.body;
+    const co = new companiesCollection(coBody);
 
-    user.save((error) => {
+    co.save((error) => {
         if(error)
             return res.status(400).send(error);
         else 
-            return res.status(200).send(user);
+            return res.status(200).send(co);
     })
 }
 
-const updateUser = (req, res) => {
+const update = (req, res) => {
     const id = req.query.id;
-    const userBody = req.body;
+    const coBody = req.body;
     const update = { new: true };
 
     companiesCollection.findByIdAndUpdate(
         id,
-        userBody,
+        coBody,
         update,
-        (error, user) => {
+        (error, co) => {
             if(error)
                 return res.status(500).send(error);
             else {
-                if(user)
-                    return res.status(200).send(user); 
+                if(co)
+                    return res.status(200).send(co); 
                 else 
                     return res.status(404).send({ message: "Empresa não existe na base de dados."});
             }
         })
 }
 
-const deleteUser = (req, res) => {
+const deleteCompany = (req, res) => {
     const id = req.query.id;
 
-    companiesCollection.findByIdAndDelete(id, (error, user) => {
-        console.log(user)
+    companiesCollection.findByIdAndDelete(id, (error, co) => {
         if(error)
             return res.status(500).send(error);
         else {
-            if(user)
+            if(co)
                 return res.status(200).send({ message: "Empresa deletada."});
             else
                 return res.status(404).send({ message: "Empresa não existe na base de dados."});
@@ -76,7 +75,7 @@ const deleteUser = (req, res) => {
 module.exports = {
     getAll,
     getById,
-    addUser,
-    updateUser,
-    deleteUser
+    add,
+    update,
+    deleteCompany
 }
