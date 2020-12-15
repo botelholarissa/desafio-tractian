@@ -1,4 +1,5 @@
 const companiesCollection = require("../models/companiesSchema");
+const usersCollection = require('../models/usersSchema');
 
 const getAll = (req, res) => {
     companiesCollection.find((error, cos) => {
@@ -72,10 +73,29 @@ const deleteCompany = (req, res) => {
     })
 }
 
+const getAllInfosById = (req, res) => {
+    const id = req.params.id;
+
+    companiesCollection
+    .findById(id)
+    .populate('unit')
+    .populate('asset')
+    .populate('user')
+    .exec
+        ((error, co) => {
+            if(error)
+                return res.status(500).send(error);
+            else {
+                return res.status(200).send(co);
+            }
+        })
+}
+
 module.exports = {
     getAll,
     getById,
     add,
     update,
-    deleteCompany
+    deleteCompany,
+    getAllInfosById
 }

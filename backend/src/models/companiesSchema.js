@@ -10,7 +10,22 @@ const companySchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
-    }
+    },
+    units: [{
+        type: Schema.Types.ObjectId,
+        ref: 'unit',
+        required: false
+    }],
+    assets: [{
+        type: Schema.Types.ObjectId,
+        ref: 'asset',
+        required: false
+    }],
+    employees:[{
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+        required: false
+    }]
 })
 
 const companiesCollection = mongoose.model('company', companySchema);

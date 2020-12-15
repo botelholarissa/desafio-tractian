@@ -7,5 +7,6 @@ router.get('/:id', controller.getById);
 router.post('/create', controller.add);
 router.put('/update', controller.update);
 router.delete('/delete', controller.deleteCompany);
+router.get('/overview/:id', controller.getAllInfosById)
 
 module.exports = router;
