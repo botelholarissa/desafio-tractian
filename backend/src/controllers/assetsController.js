@@ -41,7 +41,7 @@ const update = (req, res) => {
     const assetsBody = req.body;
     const update = { new: true };
 
-    assetssCollection.findByIdAndUpdate(
+    assetsCollection.findByIdAndUpdate(
         id,
         assetsBody,
         update,
