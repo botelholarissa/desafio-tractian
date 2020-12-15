@@ -1,71 +1,70 @@
 const unitsCollection = require("../models/unitsSchema");
 
 const getAll = (req, res) => {
-    unitsCollection.find((error, users) => {
+    unitsCollection.find((error, units) => {
         if(error)
             return res.status(500).send(error);
         else 
-            return res.status(200).send(users);
+            return res.status(200).send(units);
     })
 }
 
 const getById = (req, res) => {
     id = req.params.id;
 
-    unitsCollection.findById(id, (error, user) => {
+    unitsCollection.findById(id, (error, unit) => {
         if(error)
             return res.status(500).send(error);
         else{
-            if(user !== null)
-                return res.status(200).send(user);
+            if(unit !== null)
+                return res.status(200).send(unit);
             else
                 return res.status(404).send({ message: "Unidade não existe na base de dados."});
         }
     })
 }
 
-const addUser = (req, res) => {
-    const userBody = req.body;
-    const user = new unitsCollection(userBody);
+const add = (req, res) => {
+    const unitBody = req.body;
+    const unit = new unitsCollection(unitBody);
 
-    user.save((error) => {
+    unit.save((error) => {
         if(error)
             return res.status(400).send(error);
         else 
-            return res.status(200).send(user);
+            return res.status(200).send(unit);
     })
 }
 
-const updateUser = (req, res) => {
+const update = (req, res) => {
     const id = req.query.id;
-    const userBody = req.body;
+    const unitBody = req.body;
     const update = { new: true };
 
     unitsCollection.findByIdAndUpdate(
         id,
-        userBody,
+        unitBody,
         update,
-        (error, user) => {
+        (error, unit) => {
             if(error)
                 return res.status(500).send(error);
             else {
-                if(user)
-                    return res.status(200).send(user); 
+                if(unit)
+                    return res.status(200).send(unit); 
                 else 
                     return res.status(404).send({ message: "Unidade não existe na base de dados."});
             }
         })
 }
 
-const deleteUser = (req, res) => {
+const deleteUnit = (req, res) => {
     const id = req.query.id;
 
-    unitsCollection.findByIdAndDelete(id, (error, user) => {
-        console.log(user)
+    unitsCollection.findByIdAndDelete(id, (error, unit) => {
         if(error)
             return res.status(500).send(error);
         else {
-            if(user)
+            if(unit)
                 return res.status(200).send({ message: "Unidade deletada."});
             else
                 return res.status(404).send({ message: "Unidade não existe na base de dados."});
@@ -76,7 +75,7 @@ const deleteUser = (req, res) => {
 module.exports = {
     getAll,
     getById,
-    addUser,
-    updateUser,
-    deleteUser
+    add,
+    update,
+    deleteUnit
 }
