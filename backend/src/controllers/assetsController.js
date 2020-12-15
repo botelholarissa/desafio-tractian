@@ -60,7 +60,7 @@ const update = (req, res) => {
 const deleteAssets = (req, res) => {
     const id = req.query.id;
 
-    assetssCollection.findByIdAndDelete(id, (error, assets) => {
+    assetsCollection.findByIdAndDelete(id, (error, assets) => {
         if(error)
             return res.status(500).send(error);
         else {
