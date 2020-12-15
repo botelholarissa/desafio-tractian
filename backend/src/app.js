@@ -5,9 +5,12 @@ const cors = require('cors');
 const db = require('./configs/database');
 db.connect()
 
+const users = require('./routes/userRoutes')
+
 app.use(cors());
 app.use(express.json());
 
-//rotas
+app.use('/users', users);
+
 
 module.exports = app
