@@ -47,8 +47,8 @@ const assetSchema = new mongoose.Schema({
         ref: 'unit',
         required: true
     }
-})
+}, { timestamps: true });
 
-const assetsCollection = mongoose.model('asset', companySchema);
+const assetsCollection = mongoose.model('asset', assetSchema);
 
 module.exports = assetsCollection
