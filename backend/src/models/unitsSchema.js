@@ -10,6 +10,11 @@ const unitSchema = new Schema({
     name: {
         type: String,
         required: true
+    },
+    company: {
+        type: Schema.Types.ObjectId,
+        ref: 'company',
+        required: false
     }
 })
 

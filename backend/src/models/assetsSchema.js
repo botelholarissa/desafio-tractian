@@ -36,6 +36,16 @@ const assetSchema = new mongoose.Schema({
     hs:{
         type: Number,
         required: true
+    },
+    company: {
+        type: Schema.Types.ObjectId,
+        ref: 'company',
+        required: true
+    },
+    unit: {
+        type: Schema.Types.ObjectId,
+        ref: 'unit',
+        required: true
     }
 })
 
