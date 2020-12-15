@@ -26,7 +26,7 @@ const getById = (req, res) => {
 
 const add = (req, res) => {
     const assetsBody = req.body;
-    const assets = new assetssCollection(assetsBody);
+    const assets = new assetsCollection(assetsBody);
 
     assets.save((error) => {
         if(error)
