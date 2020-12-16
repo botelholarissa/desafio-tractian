@@ -1,5 +1,4 @@
 const companiesCollection = require("../models/companiesSchema");
-const usersCollection = require('../models/usersSchema');
 
 const getAll = (req, res) => {
     companiesCollection.find((error, cos) => {
@@ -30,6 +29,7 @@ const add = (req, res) => {
     const co = new companiesCollection(coBody);
 
     co.save((error) => {
+
         if(error)
             return res.status(400).send(error);
         else 
@@ -73,22 +73,29 @@ const deleteCompany = (req, res) => {
     })
 }
 
-const getAllInfosById = (req, res) => {
+const getAllInfosById = async (req, res) => {
     const id = req.params.id;
 
-    companiesCollection
-    .findById(id)
-    .populate('unit')
-    .populate('asset')
-    .populate('user')
-    .exec
-        ((error, co) => {
-            if(error)
-                return res.status(500).send(error);
-            else {
-                return res.status(200).send(co);
-            }
+    try{
+        const result = await companiesCollection
+        .findById(id)
+        .populate({
+            path: "assets",
+            populate: {path: 'assets'}
         })
+        .populate({
+            path: "units",
+            populate: {path: 'units'}
+        })
+        .populate({
+            path: "employees",
+            populate: {path: 'user'}
+        })
+        .exec()
+        return res.status(200).send(result);
+    } catch (error) {
+        return res.status(500).send(error);
+    }
 }
 
 module.exports = {
