@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
+const dotenv = require ('dotenv');
 
-const DB_URI = 'mongodb://localhost:27017/tractian';
+dotenv.config();
+
+const DB_URI = process.env.DB_URI;
 
 const connect = () => {
     mongoose.connect(DB_URI, { 
